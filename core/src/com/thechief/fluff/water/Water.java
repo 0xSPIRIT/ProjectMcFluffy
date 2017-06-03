@@ -3,7 +3,6 @@ package com.thechief.fluff.water;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
@@ -11,16 +10,13 @@ import com.thechief.fluff.Main;
 
 public class Water {
 	
-	private ShapeRenderer sr;
-	private WaterColumn[] springs;
+	public WaterColumn[] springs;
 
 	private float spread = 0.25f;
 	private float tension = 0.025f;
 	private float dampening = 0.005f;
 	
 	public Water() {
-		sr = new ShapeRenderer();
-
 		springs = new WaterColumn[200];
 		for (int i = 0; i < springs.length; i++) {
 			springs[i] = new WaterColumn();
@@ -68,7 +64,7 @@ public class Water {
 		}
 	}
 
-	public void render(SpriteBatch sb) {
+	public void render(ShapeRenderer sr) {
 		sr.begin(ShapeType.Filled);
 		sr.setColor(new Color(0.2f, 0.2f, 0.5f, 1f));
 
@@ -97,7 +93,7 @@ public class Water {
 	
 	public float getHeight(float x)
 	{
-		if (x < 0 || x > 800)
+		if (x < 0 || x > Main.WIDTH)
 			return 240;
 
 		return springs[(int)(x / (Main.WIDTH / (springs.length - 2)))].height;
